@@ -51,14 +51,14 @@ class ConfigureDocker(base.Command):
 
   def Run(self, args):
     """Run the configure-docker command."""
-    if not file_utils.SearchForExecutableOnPath('docker-credential-gcloud'):
+    if not file_utils.FindExecutableOnPath('docker-credential-gcloud'):
       log.warning('`docker-credential-gcloud` not in system PATH.\n'
                   'gcloud\'s Docker credential helper can be configured but '
                   'it will not work until this is corrected.')
 
     current_config = cred_utils.Configuration.ReadFromDisk()
 
-    if file_utils.SearchForExecutableOnPath('docker'):
+    if file_utils.FindExecutableOnPath('docker'):
       if not current_config.SupportsRegistryHelpers():
         raise ConfigureDockerError(
             'Invalid Docker version: The version of your Docker client is '
